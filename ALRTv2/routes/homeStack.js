@@ -9,15 +9,15 @@ const screens ={
     Home: {
         screen: Home
     },
-    CallInfo:{
-        screen: CallInfo
-    },
-    PriceInfo:{
-        screen: PriceInfo
-    },
-    PutInfo:{
-        screen: PutInfo
-    }
+    // CallInfo:{
+    //     screen: CallInfo
+    // },
+    // PriceInfo:{
+    //     screen: PriceInfo
+    // },
+    // PutInfo:{
+    //     screen: PutInfo
+    // }
 };
 
 const HomeStack = createStackNavigator(screens);

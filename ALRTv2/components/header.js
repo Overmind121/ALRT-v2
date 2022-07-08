@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'teal',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'row',
     },
     title:{
         color: '#fff',

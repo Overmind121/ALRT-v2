@@ -31,7 +31,6 @@ export default function Home({navigation}) {
                                       
   return (
     <View style={styles.container}>
-      <HeaderNative/>
       <View style={styles.content}>
         {/* <View style={styles.list}>
 

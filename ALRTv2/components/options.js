@@ -1,7 +1,5 @@
 import React, { useState, useContext} from 'react'
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { InfoContext } from '../store';
 
 export default function OptionsNative({item, pressHandler}){
 

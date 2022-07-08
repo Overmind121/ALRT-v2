@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
-
+import PriceOption from '../components/priceOption';
 
 import HeaderNative from '../components/header';
 import OptionsNative from '../components/options';
@@ -40,6 +40,7 @@ export default function Home({navigation}) {
 
           
         </View> */}
+        <PriceOption />
       </View>
     </View>
   

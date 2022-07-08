@@ -12,8 +12,8 @@ export default function HeaderNative() {
 
 const styles = StyleSheet.create({
     header:{
-        height: 80,
-        backgroundColor: 'teal',
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',

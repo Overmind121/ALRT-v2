@@ -12,7 +12,11 @@ const screens ={
     Home: {
         screen: Home,
         navigationOptions:{
-            headerTitle: () => <HeaderNative/>
+            headerTitle: () => <HeaderNative/>,
+            headerStyle:{
+                backgroundColor: 'teal'
+            }
+
         }
     },
     // CallInfo:{

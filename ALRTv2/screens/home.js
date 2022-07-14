@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import PriceOption from '../components/priceOption';
 
 import HeaderNative from '../components/header';
@@ -30,19 +30,23 @@ export default function Home({navigation}) {
   // }
                                       
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        {/* <View style={styles.list}>
+    <TouchableWithoutFeedback onPress={() =>{
+      Keyboard.dismiss();
+    }}>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          {/* <View style={styles.list}>
 
-          <OptionsNative item={price} pressHandler={pressHandler} />
-          <OptionsNative item={call} pressHandler={pressHandler} />
-          <OptionsNative item={put} pressHandler={pressHandler} />
+            <OptionsNative item={price} pressHandler={pressHandler} />
+            <OptionsNative item={call} pressHandler={pressHandler} />
+            <OptionsNative item={put} pressHandler={pressHandler} />
 
-          
-        </View> */}
-        <PriceOption />
+            
+          </View> */}
+          <PriceOption />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   
   );
 }

@@ -32,23 +32,25 @@ export default function Home({navigation}) {
   // }
                                       
   return (
-      <ScrollView>
+
         <View style={styles.container}>
-          <View style={styles.content}>
-            {/* <View style={styles.list}>
+          <ScrollView>
+            <View style={styles.content}>
+              {/* <View style={styles.list}>
 
-              <OptionsNative item={price} pressHandler={pressHandler} />
-              <OptionsNative item={call} pressHandler={pressHandler} />
-              <OptionsNative item={put} pressHandler={pressHandler} />
+                <OptionsNative item={price} pressHandler={pressHandler} />
+                <OptionsNative item={call} pressHandler={pressHandler} />
+                <OptionsNative item={put} pressHandler={pressHandler} />
 
-              
-            </View> */}
-            <PriceOption />
-            <CallOption />
-            <PutOption />
-          </View>
+                
+              </View> */}
+              <PriceOption />
+              <CallOption />
+              <PutOption />
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+
   
   );
 }

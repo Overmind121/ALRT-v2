@@ -3,34 +3,53 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput } from 
 import { InfoContext } from '../store';
 
 
-export default function PriceOption(){
+export default function PutOption(){
 
-    const {priceData} = useContext(InfoContext);
+    const {priceData, putData} = React.useContext(InfoContext);
 
-    const [currentPrice, setCurr] = useState(0);
-    const [expectedPrice, setExp] = useState(0);
-    const [diffPrice, setPrice] = priceData;
+    const [price, setPrice] = priceData;
+    const [put, setPut] = putData;
+
+    const [curr, setCurr] = useState(0);
+    const [delta, setDelta] = useState(0);
+    const [gamma, setGamma] = useState(0);
+
+    let newPE = 0;
+    let newDiff = 0;
 
     const readCurrent = (val) =>{
-        setCurr(parseFloat(val));
+        setCurr(parseInt(val));
     };
 
-    const readExpected = (val) =>{
-        setExp(parseFloat(val));
+    const readDelta = (val) =>{
+        setDelta(parseFloat(val));
+    };
+
+    const readGamma = (val) =>{
+       setGamma(parseFloat(val)); 
+    };
+
+    const calcExpected = () =>{
+        newPE = ((price.value) * ((delta)+(gamma))) + (curr)
+        const newPut = {
+            ...put,
+            expected: newPE.toFixed(2),
+        };
+        setPut(newPut);
     };
 
     const calcDiff = () =>{
-        let newPD = expectedPrice-currentPrice;
-        const newPrice ={
-            ...diffPrice,
-            value: newPD.toFixed(2),
+        newDiff = put.expected - curr;
+        const newPut = {
+            ...put,
+            value: newDiff.toFixed(2),
         };
-        setPrice(newPrice);
-    };
+        setPut(newPut);
+    }
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Price Information</Text>
+            <Text style={styles.title}>Put Information</Text>
             <ScrollView horizontal={true} bounces={true}>            
                 <View style={styles.info}>
                     <View style={styles.shell}>
@@ -43,21 +62,36 @@ export default function PriceOption(){
                         />
                     </View>
                     <View style={styles.shell}>
-                        <Text style = {styles.contentText}>Expected Price</Text>
+                        <Text style = {styles.contentText}>Current Gamma</Text>
                         <TextInput
                         style={styles.input}
-                        onChangeText={readExpected}
+                        onChangeText={readGamma}
                         placeholder='Enter a value'
                         keyboardType='numeric' 
                         />
                     </View>
-                    <TouchableOpacity onPress={calcDiff}>
+                    <View style={styles.shell}>
+                        <Text style = {styles.contentText}>Current Delta</Text>
+                        <TextInput
+                        style={styles.input}
+                        onChangeText={readDelta}
+                        placeholder='Enter a value'
+                        keyboardType='numeric' 
+                        />
+                    </View>
+                    <TouchableOpacity onPress={calcExpected}>
                         <View style={styles.shell}>
-                            <Text style = {styles.contentText}>Price Diff</Text>
-                            {diffPrice.value == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{diffPrice.value}</Text>}
+                            <Text style = {styles.contentText}>Put Expected</Text>
+                            {put.expected == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{put.expected}</Text>}
                         </View>
                     </TouchableOpacity>
-                    
+
+                    <TouchableOpacity onPress={calcDiff}>
+                        <View style={styles.shell}>
+                            <Text style = {styles.contentText}>Put Diff</Text>
+                            {put.value == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{put.value}</Text>}
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
 
@@ -79,7 +113,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontWeight: 'bold',
 
-        
     },
     info:{
         flex: 1,

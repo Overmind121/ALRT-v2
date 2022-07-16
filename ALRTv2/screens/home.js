@@ -1,19 +1,21 @@
 import React, { useContext, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import PriceOption from '../components/priceOption';
+import CallOption from '../components/callOption';
+import PutOption from '../components/putOption';
 
-import HeaderNative from '../components/header';
-import OptionsNative from '../components/options';
-import { InfoContext } from '../store';
+// import HeaderNative from '../components/header';
+// import OptionsNative from '../components/options';
+// import { InfoContext } from '../store';
 
 export default function Home({navigation}) {
 
-  const { priceData, callData, putData } = React.useContext(InfoContext);
+  // const { priceData, callData, putData } = React.useContext(InfoContext);
 
-  const [price, setPrice] = priceData;
-  const [call, setCall] = callData;
-  const [put, setPut] = putData;
+  // const [price, setPrice] = priceData;
+  // const [call, setCall] = callData;
+  // const [put, setPut] = putData;
 
   // const pressHandler = (item) =>{
 
@@ -30,23 +32,23 @@ export default function Home({navigation}) {
   // }
                                       
   return (
-    <TouchableWithoutFeedback onPress={() =>{
-      Keyboard.dismiss();
-    }}>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          {/* <View style={styles.list}>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            {/* <View style={styles.list}>
 
-            <OptionsNative item={price} pressHandler={pressHandler} />
-            <OptionsNative item={call} pressHandler={pressHandler} />
-            <OptionsNative item={put} pressHandler={pressHandler} />
+              <OptionsNative item={price} pressHandler={pressHandler} />
+              <OptionsNative item={call} pressHandler={pressHandler} />
+              <OptionsNative item={put} pressHandler={pressHandler} />
 
-            
-          </View> */}
-          <PriceOption />
+              
+            </View> */}
+            <PriceOption />
+            <CallOption />
+            <PutOption />
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </ScrollView>
   
   );
 }
@@ -54,7 +56,7 @@ export default function Home({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E8EAED',
   },
   // content:{
   //   flex: 1,

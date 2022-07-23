@@ -1,22 +1,24 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext, useEffect} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { InfoContext } from '../store';
 
 
 export default function PriceOption(){
-
     const {priceData} = useContext(InfoContext);
-
     const [currentPrice, setCurr] = useState(0);
     const [expectedPrice, setExp] = useState(0);
     const [diffPrice, setPrice] = priceData;
 
+    const [inputChange, setChange] = useState(false);
+
     const readCurrent = (val) =>{
         setCurr(parseFloat(val));
+        setChange(true);
     };
 
     const readExpected = (val) =>{
         setExp(parseFloat(val));
+        setChange(true);
     };
 
     const calcDiff = () =>{
@@ -28,6 +30,13 @@ export default function PriceOption(){
         setPrice(newPrice);
     };
 
+    useEffect(() =>{
+        const interval = setInterval(()=> {
+            calcDiff();
+        }, 100);
+        return()=>clearInterval(interval);
+    });
+    
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Price Information</Text>
@@ -51,12 +60,10 @@ export default function PriceOption(){
                         keyboardType='numeric' 
                         />
                     </View>
-                    <TouchableOpacity onPress={calcDiff}>
-                        <View style={styles.shell}>
-                            <Text style = {styles.contentText}>Price Diff</Text>
-                            {diffPrice.value == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{diffPrice.value}</Text>}
-                        </View>
-                    </TouchableOpacity>
+                    <View style={styles.shell}>
+                        <Text style = {styles.contentText}>Price Diff</Text>
+                        {diffPrice.value == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{diffPrice.value}</Text>}
+                    </View>
                     
                 </View>
             </ScrollView>

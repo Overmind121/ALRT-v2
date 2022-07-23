@@ -1,5 +1,5 @@
-import React, { useState, useContext} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import React, { useState, useEffect} from 'react'
+import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import { InfoContext } from '../store';
 
 
@@ -31,7 +31,6 @@ export default function CallOption(){
 
     const calcExpected = () =>{
         newCE = ((price.value) * ((delta)+(gamma))) + (curr)
-        console.log(newCE);
         const newCall = {
             ...call,
             expected: newCE.toFixed(2),
@@ -46,8 +45,26 @@ export default function CallOption(){
             value: newDiff.toFixed(2),
         };
         setCall(newCall);
-    }
 
+    }
+    useEffect(() =>{
+        const interval = setInterval(()=> {
+            calcExpected();
+        }, 100);
+        return()=>{
+            clearInterval(interval)
+        };
+    });
+
+    useEffect(() =>{
+        const interval = setInterval(()=> {
+            // calcExpected();
+            calcDiff();
+        }, 100);
+        return()=>{
+            clearInterval(interval)
+        };
+    });
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Call Information</Text>
@@ -80,19 +97,14 @@ export default function CallOption(){
                         keyboardType='numeric' 
                         />
                     </View>
-                    <TouchableOpacity onPress={calcExpected}>
-                        <View style={styles.shell}>
-                            <Text style = {styles.contentText}>Call Expected</Text>
-                            {call.expected == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{call.expected}</Text>}
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={calcDiff}>
-                        <View style={styles.shell}>
-                            <Text style = {styles.contentText}>Call Diff</Text>
-                            {call.value == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{call.value}</Text>}
-                        </View>
-                    </TouchableOpacity>
+                    <View style={styles.shell}>
+                        <Text style = {styles.contentText}>Call Expected</Text>
+                        {call.expected == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{call.expected}</Text>}
+                    </View>
+                    <View style={styles.shell}>
+                        <Text style = {styles.contentText}>Call Diff</Text>
+                        {call.value == 0 ? <Text style = {styles.result}>...</Text> : <Text style = {styles.result}>{call.value}</Text>}
+                    </View>
                 </View>
             </ScrollView>
 
